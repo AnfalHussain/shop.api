@@ -15,6 +15,12 @@ class AddressSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ProductHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['name', 'price']
+
+
 class BasketSerializer(serializers.ModelSerializer):
     product = ProductHistorySerializer()
 

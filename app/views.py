@@ -39,7 +39,7 @@ class OrderItems(APIView):
         address_object.save()
 
         order = Order.objects.create(
-            order_ref=rand_order_ref, customer=request.user, address=address_object, total=total, status="Pending")
+            order_ref=rand_order_ref, address=address_object, total=total, status="Pending")
         items = request.data['baskets']
         for item in items:
             Basket.objects.create(

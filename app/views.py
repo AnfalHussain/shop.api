@@ -2,16 +2,16 @@ from rest_framework.generics import (
     CreateAPIView, RetrieveAPIView, ListAPIView,
     RetrieveUpdateAPIView)
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.status import (HTTP_200_OK, HTTP_400_BAD_REQUEST)
 from rest_framework.response import Response
 from rest_framework.filters import OrderingFilter
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 import uuid
 
 from .serializers import (
     ProductsListSerializer,
-    OrderSerializer, AddressSerializer
+    OrderSerializer, UpdateOrderSerializer, AddressSerializer
 )
 from .models import (Product, Order, Basket, Address)
 
@@ -53,3 +53,11 @@ class OrderItems(APIView):
 class NewOrdersListView(ListAPIView):
     serializer_class = OrderSerializer
     queryset = Order.objects.filter(status="Pending")
+
+
+class UpdateOrderView(RetrieveUpdateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = UpdateOrderSerializer
+    lookup_field = 'id'
+    lookup_url_kwarg = 'order_id'
+    permission_classes = [IsAuthenticated, IsAdminUser]

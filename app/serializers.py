@@ -37,3 +37,9 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ["id", "order_ref", "address",
                   "baskets", "date_time", "total", "status"]
+
+
+class UpdateOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ["id", "status"]

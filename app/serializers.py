@@ -31,8 +31,9 @@ class BasketSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     baskets = BasketSerializer(many=True)
+    address = AddressSerializer()
 
     class Meta:
         model = Order
         fields = ["id", "order_ref", "address",
-                  "baskets", "date_time", "total"]
+                  "baskets", "date_time", "total", "status"]

@@ -48,3 +48,8 @@ class OrderItems(APIView):
                 order=order
             )
         return Response(self.serializer_class(order).data, status=HTTP_200_OK)
+
+
+class NewOrdersListView(ListAPIView):
+    serializer_class = OrderSerializer
+    queryset = Order.objects.filter(status="Pending")
